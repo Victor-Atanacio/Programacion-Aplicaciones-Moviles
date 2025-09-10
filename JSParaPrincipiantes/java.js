@@ -1,4 +1,4 @@
-document.writeln("<h1>Hola mundo</h1>"); 
+/*document.writeln("<h1>Hola mundo</h1>"); 
 console.log("Hola");
 console.error("hay un error");
 //Tipos de datos en js
@@ -31,6 +31,7 @@ console.log({
     "hours":14,
     "Proffesional": true
 });
+*/
 
 // Variables
 var name = "Victor";
@@ -53,3 +54,16 @@ console.log(nameresult);
 result = num1 == name2;
 console.log(result);
 
+
+if(result === true){
+    console.log("login correcto");
+}else{
+    console.log("Contraseña incorrecto");
+}
+
+let puntuacion = 30;
+if(puntuacion > 30){
+  console.log("Necesitas practicar más");
+}else{
+  console.log("Necesitas ver un tutorial")
+}
