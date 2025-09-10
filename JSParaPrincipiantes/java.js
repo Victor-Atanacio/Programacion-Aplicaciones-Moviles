@@ -31,25 +31,3 @@ console.log({
     "hours":14,
     "Proffesional": true
 });
-
-// Variables
-var name = "Victor";
-console.log(name);
-let name2 = "Miguel";
-console.log(name2);
-const PI = 3.1416;
-console.log(PI);
-
-//Suma de dos números
-let num1 = 10;
-let num2 = 20;
-
-let result = num1 + num2;
-console.log(result);
-
-let nameresult = name + name2;
-console.log(nameresult);
-
-result = num1 == name2;
-console.log(result);
-
