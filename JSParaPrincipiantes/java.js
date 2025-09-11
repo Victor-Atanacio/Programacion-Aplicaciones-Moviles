@@ -96,3 +96,20 @@ console.log(names[1]);
 for(let i = 0; i < names.length; i++){
     console.log(names[i]);
 }
+
+function saludar(persona){
+    console.log("Hola, "+ persona);
+}
+
+saludar("Victor");
+saludar("Jairo");
+saludar("Juan");
+
+
+function sumar(n1,n2){
+    console.log(n1 + n2);
+}
+
+sumar(100,22);
+sumar(10,10);
+sumar(22,23.2);
