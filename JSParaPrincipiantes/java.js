@@ -66,4 +66,19 @@ if(puntuacion > 30){
   console.log("Necesitas practicar más");
 }else{
   console.log("Necesitas ver un tutorial")
+} 
+
+
+let typeCard = "Credit Card";
+
+switch(typeCard){
+    case 'Debid Card':
+        console.log("Es una tarjeta de debito");
+    break;
+    case 'Credit Card':
+        console.log("Es una tarjeta de credito");
+    break;
+    default:
+        console.log("No es tarjeta");
+    
 }
