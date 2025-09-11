@@ -32,7 +32,7 @@ console.log({
     "Proffesional": true
 });
 */
-
+/*
 // Variables
 var name = "Victor";
 console.log(name);
@@ -87,4 +87,12 @@ let conatdor = 1;
 while(conatdor < 10){
     console.log(conatdor);
     conatdor++;
+}*/
+
+let names = ['Victor','Juan','Nery'];
+console.log(names);
+console.log(names[1]);
+
+for(let i = 0; i < names.length; i++){
+    console.log(names[i]);
 }
