@@ -82,3 +82,9 @@ switch(typeCard){
         console.log("No es tarjeta");
     
 }
+
+let conatdor = 1;
+while(conatdor < 10){
+    console.log(conatdor);
+    conatdor++;
+}
