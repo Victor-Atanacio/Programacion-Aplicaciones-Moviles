@@ -1,7 +1,6 @@
-const cuadrado = numero => {
-    return numero * numero;
+const saludoPersonalizado = (nombre, edad) =>{
+   let saludar = "Hola, Me llamo "+nombre+" y tengo "+edad+" años";
+  return saludar;
 }
 
-console.log(cuadrado(4));
-console.log(cuadrado(5));
-console.log(cuadrado(6));
+console.log(saludoPersonalizado("victor", 19));
