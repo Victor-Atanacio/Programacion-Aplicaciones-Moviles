@@ -6,7 +6,7 @@ function verificarUsuario(usuario){
         }else{
             reject("Acceso denegado");
         }
-      }, 3000);
+      }, 3000)
    })
 }
 

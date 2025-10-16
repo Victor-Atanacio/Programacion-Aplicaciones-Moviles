@@ -1,3 +1,4 @@
 import { restar } from './utils.js';
 
 console.log(restar(15,5));
+console.log(restar(15,6));

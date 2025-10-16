@@ -88,7 +88,7 @@ while(conatdor < 10){
     console.log(conatdor);
     conatdor++;
 }*/
-
+/*
 let names = ['Victor','Juan','Nery'];
 console.log(names);
 console.log(names[1]);
@@ -113,3 +113,15 @@ function sumar(n1,n2){
 sumar(100,22);
 sumar(10,10);
 sumar(22,23.2);
+*/
+// Ejemplo de arreglos de numericos
+let numeros = [1,2,3,4,5,6,7,8,9];
+
+// Ejemplos de arreglos booleanos
+var Boolean1 = [true,false,true,false];
+
+//Ejemplos de arreglos de String
+const name1 = ['Juan','Luis Fernando','Victor'];
+
+//Ejemplos de arreglos de double
+var numerosDecimales = [12.2,2.3,4.122,15.2,24.0];
