@@ -3,13 +3,13 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import React, {useState} from 'react';
 import ContadorScreen from './ContadorScreen';
 import BotonesScreen from './BotonesScreen';
-import TextInput from './TextInput';
 import ImageBackgroup from './ImageBackgroup';
 import ScrolView from './ScrolView';
 import ActivitIndicator from './ActivitIndicator';
 import FlatList from './FlatList';
 import Modal from './Modal';
 import BottomSheetScreem from './BottomSheetScreem';
+import TextInputScreen from './TextInputScreen';
 
 //2. Main: Zona de componentes
 export default function MenuScreen() {
@@ -20,7 +20,7 @@ export default function MenuScreen() {
           case 'botones':
             return <BotonesScreen/>
           case 'textinput':
-            return <TextInput/>
+            return <TextInputScreen/>
           case 'imageBack':
             return <ImageBackgroup/>
           case 'scrolView':
@@ -35,7 +35,7 @@ export default function MenuScreen() {
             return <BottomSheetScreem/>
           case 'menu':
           default:  return (<View style={styles.container} >
-                            <text style={styles.texto} >Menú de Practicas</text>
+                            <Text style={styles.texto} >Menú de Practicas</Text>
                             <Button  color={"red"} title='Pract:Contador' onPress={()=>setScreen('contador')}/>
                             <Button  color={"red"} title='Pract:Botones' onPress={()=>setScreen('botones')}/>
                             <Button  color={"red"} title='Pract:TextInput' onPress={()=>setScreen('textinput')}/>
