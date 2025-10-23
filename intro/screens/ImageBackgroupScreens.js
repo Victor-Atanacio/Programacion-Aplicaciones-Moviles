@@ -39,7 +39,7 @@ export default function ImageBackgroupScreens() {
        >
        <StatusBar barStyle="light-content" backgroundColor="transparent" translucent/>
        <View style={styles.mainOverlay}>
-          <Text style={styles.welcome}></Text>
+          <Text style={styles.welcome}>Empezar APP</Text>
           <TouchableOpacity
             style={styles.button}
             onPress={()=> alert('Boton presionado')}
