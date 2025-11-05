@@ -26,7 +26,6 @@ export default function ScrolViewScreen() {
              contentContainerStyle={styles.content}
              //horizontal={true}
              showsVerticalScrollIndicator={true}
-             
              >
                {items.map((item,index)=>(
                 <View key={index} style={styles.box}>
