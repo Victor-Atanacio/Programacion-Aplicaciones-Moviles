@@ -1,11 +1,13 @@
 import React, {useEffect,useState} from 'react'
-import { Text,View,ImageBackground,StyleSheet,StatusBar,Image,ScrollView} from 'react-native';
+import { Text,View,ImageBackground,StyleSheet,StatusBar,Image,ScrollView,TouchableOpacity,Modal} from 'react-native';
 
 const ImagenDeFondo = require('../assets/imagenes/Imagen1.jpg');
 
 export default function MifaleriaScreen() {
   
     const [isLoading,setIsLoading] = useState(true);
+    const [info,setInfo] = useState(false);
+
     useEffect(()=>{
        const timer = setTimeout(()=>{
          setIsLoading(false);
@@ -27,12 +29,42 @@ export default function MifaleriaScreen() {
        </ImageBackground>
      );
     }
-
+  if(info){
+    return(
+     <View style={styles.descripcion}>
+        <Text>Titulo</Text>
+        <Text>Descripcion</Text>
+     </View>
+    );
+  }
   return (
     <View style={styles.contenedor}>
        <Text style={styles.Titulo}>MI Galeria</Text>
-       <ScrollView contentContainerStyle={styles.scrollConenido}>
-
+       <ScrollView showsVerticalScrollIndicator={true} contentContainerStyle={styles.scrollConenido}>
+        <View style={styles.tarjeta}>
+         <View style={styles.contenidoTarjeta}>
+         <Text style={styles.tituloImagen}>Hola</Text>
+        <TouchableOpacity onPress={()=>setInfo(true)} >
+             <ImageBackground  style={styles.imagenesTarjeta} source={ImagenDeFondo} />
+        </TouchableOpacity>
+         <Text>Imagen avión</Text>
+         </View>
+         <View style={styles.contenidoTarjeta}>
+         <Text style={styles.tituloImagen}>Hola</Text>
+        <TouchableOpacity onPress={()=>setInfo(true)} >
+             <ImageBackground  style={styles.imagenesTarjeta} source={ImagenDeFondo} />
+        </TouchableOpacity>
+         <Text>Imagen avión</Text>
+         </View>
+        <View style={styles.contenidoTarjeta}>
+        <Text style={styles.tituloImagen}>Hola</Text>
+        <TouchableOpacity onPress={()=>setInfo(true)} >
+             <ImageBackground  style={styles.imagenesTarjeta} source={ImagenDeFondo} />
+        </TouchableOpacity>
+         <Text>Imagen avión</Text>
+         </View>
+        </View>
+        
        </ScrollView>
     </View>
   );
@@ -63,6 +95,23 @@ const styles = StyleSheet.create({
     alignItems:"center",
     marginTop:40
   },Titulo:{
-    
+    fontSize:20,
+    marginEnd:20
+  },scrollConenido:{
+    paddingBottom:40,
+    flexGrow:1,
+    height:"100%",
+    width:"100%"
+  },imagenesTarjeta:{
+    height:200,
+    width:200,
+    marginLeft:20
+  },contenidoTarjeta:{
+    flex:1,
+    alignItems:"center"
+  },tituloImagen:{
+    fontSize:20
+  },tarjeta:{
+    flexDirection:"row",
   }
 });
