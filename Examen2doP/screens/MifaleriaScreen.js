@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react'
-import { Text,View,ImageBackground,StyleSheet,StatusBar,Image,ScrollView,TouchableOpacity,Modal} from 'react-native';
+import { Text,View,ImageBackground,StyleSheet,StatusBar,Image,ScrollView,TouchableOpacity,Modal, Alert} from 'react-native';
 
 const ImagenDeFondo = require('../assets/imagenes/Imagen1.jpg');
 
@@ -7,7 +7,9 @@ export default function MifaleriaScreen() {
   
     const [isLoading,setIsLoading] = useState(true);
     const [info,setInfo] = useState(false);
-
+    const MostrarInformacion = ()=>{
+        Alert("Informacion");
+    }
     useEffect(()=>{
        const timer = setTimeout(()=>{
          setIsLoading(false);
@@ -40,24 +42,24 @@ export default function MifaleriaScreen() {
   return (
     <View style={styles.contenedor}>
        <Text style={styles.Titulo}>MI Galeria</Text>
-       <ScrollView showsVerticalScrollIndicator={true} contentContainerStyle={styles.scrollConenido}>
+       <ScrollView contentContainerStyle={styles.scrollConenido}>
         <View style={styles.tarjeta}>
          <View style={styles.contenidoTarjeta}>
-         <Text style={styles.tituloImagen}>Hola</Text>
+         <Text style={styles.tituloImagen}>Imagen 1</Text>
         <TouchableOpacity onPress={()=>setInfo(true)} >
              <ImageBackground  style={styles.imagenesTarjeta} source={ImagenDeFondo} />
         </TouchableOpacity>
          <Text>Imagen avión</Text>
          </View>
          <View style={styles.contenidoTarjeta}>
-         <Text style={styles.tituloImagen}>Hola</Text>
+         <Text style={styles.tituloImagen}>Imagen 2</Text>
         <TouchableOpacity onPress={()=>setInfo(true)} >
              <ImageBackground  style={styles.imagenesTarjeta} source={ImagenDeFondo} />
         </TouchableOpacity>
          <Text>Imagen avión</Text>
          </View>
         <View style={styles.contenidoTarjeta}>
-        <Text style={styles.tituloImagen}>Hola</Text>
+        <Text style={styles.tituloImagen}>Imagen 3</Text>
         <TouchableOpacity onPress={()=>setInfo(true)} >
              <ImageBackground  style={styles.imagenesTarjeta} source={ImagenDeFondo} />
         </TouchableOpacity>
@@ -100,8 +102,6 @@ const styles = StyleSheet.create({
   },scrollConenido:{
     paddingBottom:40,
     flexGrow:1,
-    height:"100%",
-    width:"100%"
   },imagenesTarjeta:{
     height:200,
     width:200,
@@ -112,6 +112,6 @@ const styles = StyleSheet.create({
   },tituloImagen:{
     fontSize:20
   },tarjeta:{
-    flexDirection:"row",
+
   }
 });

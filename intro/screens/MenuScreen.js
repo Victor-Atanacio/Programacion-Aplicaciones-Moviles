@@ -3,14 +3,15 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import React,{useState} from 'react';
 import ContadorScreen from './ContadorScreen';
 import BotonesScreen from './BotonesScreen';
-import ActivitIndicator from './ActivitIndicator';
-import FlatList from './FlatList';
-import Modal from './Modal';
+import ActivitIndicatorScreen from './ActivitIndicatorScreen';
+import FlatListScreen from './FlatListScreen';
 import BottomSheetScreem from './BottomSheetScreem';
 import TextInputScreen from './TextInputScreen';
 import ImageBackgroupScreens from './ImageBackgroupScreens';
 import PantallaDeRegistroScreen from './PantallaDeRegistroScreen';
 import ScrolViewScreen from './ScrolViewScreen';
+import SectionListScreen from './SectionListScreen';
+import ModalScreen from './ModalScreen';
 //2. Main: Zona de componentes
 export default function MenuScreen() {
     const [screen,setScreen] = useState('menu');
@@ -26,11 +27,13 @@ export default function MenuScreen() {
           case 'scrolView':
             return <ScrolViewScreen/>
           case 'activitIndicator':
-            return <ActivitIndicator/>
+            return <ActivitIndicatorScreen/>
           case 'flatList':
-            return <FlatList/>
+            return <FlatListScreen/>
+          case 'sectionList':
+              return <SectionListScreen/>
           case 'modal':
-            return <Modal/>
+            return <ModalScreen/>
           case 'bottomSheet':
             return <BottomSheetScreem/>
           case 'pantalla':
@@ -47,7 +50,7 @@ export default function MenuScreen() {
                             <Button  color={"red"} title='Pract:ActivitIndicator' onPress={()=>setScreen('activitIndicator')}/>
                             <Button  color={"red"} title='Pract:FlatList' onPress={()=>setScreen('flatList')}/>
                             <Button  color={"red"} title='Pract:Modal' onPress={()=>setScreen('modal')}/>
-                            
+                            <Button  color={"red"} title='Pract:SectionList' onPress={()=>setScreen('sectionList')}/>
                             <Button  color={"red"} title='Pract:Bottom Sheet' onPress={()=>setScreen('bottomSheet')}/>
                             </View>);
     }
