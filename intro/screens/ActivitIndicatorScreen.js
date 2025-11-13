@@ -36,7 +36,7 @@ export default function ActivitIndicatorScreen() {
          {cargando &&(
             <ActivityIndicator
             size="large"
-            color="#000000ff"
+            color="#bbff00ff"
             style={styles.indicador}
             />
          )
