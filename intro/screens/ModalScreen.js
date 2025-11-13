@@ -43,12 +43,18 @@ export default function ModalScreen() {
            <View style={styles.modalVista}>
               <View style={styles.modalTitulo}>Prueba de Modal</View>
               
-              <TextInput style={styles.modalInput} placeholder='Escribe tu nombre' placeholderTextColor="#888" value={descripcion} onChangeText={setDescripcion}/>
-              <TextInput style={styles.modalInput} placeholder='Escribe tu número favorito' keyboardType='numeric' placeholderTextColor="#888" value={numFav} onChangeText={setNumFav}/>
+              <TextInput style={styles.modalInput} placeholder='Escribe tu nombre' placeholderTextColor="#888"
+               value={descripcion} onChangeText={setDescripcion}/>
+              
+              <TextInput style={styles.modalInput} placeholder='Escribe tu número favorito' keyboardType='numeric' placeholderTextColor="#888" 
+              value={numFav} onChangeText={setNumFav}/>
             
               <View style={styles.switchContenedor}>
               <Text style={[styles.switchTexto, !gasto && styles.switchTextoActivoVerde]}>Activo</Text>
-              <Switch trackColor={{false:'#DCFCE7', true: '#FEE2E2'}} thumbColor={gasto ? '#EF4444' :  '#22C55E'} onValueChange={()=> setGasto(!gasto)} value={gasto}/>
+              
+              <Switch trackColor={{false:'#DCFCE7', true: '#FEE2E2'}} thumbColor={gasto ? '#EF4444' :  '#22C55E'}
+               onValueChange={()=> setGasto(!gasto)} value={gasto}/>
+              
               <Text style={[styles.switchTexto, gasto && styles.switchTextoActivoRojo]}>Inactivo</Text>
               </View>  
 

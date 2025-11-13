@@ -3,7 +3,7 @@ import{Text,StyleSheet,View,Button,StatusBar,Pressable,Image} from 'react-native
 import BottomSheet,{BottomSheetView} from '@gorhom/bottom-sheet';
 
 export default function BottomSheetScreen(){
-  const sheetRef=useRef('null');
+  const sheetRef=useRef(null);
   const snapPoints=useMemo(()=>["45%","75%","100%"]);
 
   const handleCloseSheet=()=>{
@@ -12,7 +12,7 @@ export default function BottomSheetScreen(){
   const handleOpenSheet= ()=>{
     sheetRef.current?.snapToIndex(0);
   };
-  
+
   return(
     <View style={styles.container}>
       <Text style={styles.headerText}>Pantalla principal</Text>
