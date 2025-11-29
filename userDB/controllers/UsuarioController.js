@@ -37,6 +37,17 @@ export class UsuarioController {
       throw error;
     }
   }
+  async eliminarUsuario(id) {
+    await DatabaseService.delete(id);
+    this.notifyListeners();  
+    return true;
+  }
+  async editarUsuario(id, nuevoNombre) {
+    Usuario.validar(nuevoNombre);
+    await DatabaseService.update(id, nuevoNombre);
+    this.notifyListeners();
+    return true;
+  }
 
   addListener(callback) {
     this.listeners.push(callback);

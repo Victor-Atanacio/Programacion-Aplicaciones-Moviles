@@ -1,22 +1,23 @@
 import { useEffect, useState, useCallback } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList,StyleSheet, Alert,ActivityIndicator,Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert, ActivityIndicator, Platform, Modal } from 'react-native';
 import { UsuarioController } from '../controllers/UsuarioController';
 
 const controller = new UsuarioController();
 
 export default function InsertUsuarioScreen() {
-
   const [usuarios, setUsuarios] = useState([]);
   const [nombre, setNombre] = useState('');
   const [loading, setLoading] = useState(true);
+  const [usuarioEditar, setUsuarioEditar] = useState(null);
+  const [nuevoNombre, setNuevoNombre] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
   const [guardando, setGuardando] = useState(false);
 
-  const cargarUsuarios = useCallback( async () => {
+  const cargarUsuarios = useCallback(async () => {
     try {
       setLoading(true);
       const data = await controller.obtenerUsuario();
       setUsuarios(data);
-      console.log(`${data.length} usuarios cargados`);
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
@@ -24,26 +25,43 @@ export default function InsertUsuarioScreen() {
     }
   }, []);
 
-  useEffect(() => {
+  const eliminarUsuario = (id) => {
+    Alert.alert(
+      "Eliminar Usuario",
+      "¿Estás seguro de eliminar este usuario?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        { text: "Eliminar", onPress: async () => await controller.eliminarUsuario(id) }
+      ]
+    );
+  };
 
+  const abrirModalEditar = (usuario) => {
+    setUsuarioEditar(usuario);
+    setNuevoNombre(usuario.nombre);
+    setModalVisible(true);
+  };
+
+  const guardarCambios = async () => {
+    if (!nuevoNombre.trim()) return;
+    await controller.editarUsuario(usuarioEditar.id, nuevoNombre);
+    setModalVisible(false);
+    setUsuarioEditar(null);
+  };
+
+  useEffect(() => {
     const init = async () => {
-      await controller.initialize();   
+      await controller.initialize();
       await cargarUsuarios();
     };
-
     init();
 
-    controller.addListener(cargarUsuarios);   
-
-    return () => {
-      controller.removeListener(cargarUsuarios);  
-    };
-
+    controller.addListener(cargarUsuarios);
+    return () => controller.removeListener(cargarUsuarios);
   }, [cargarUsuarios]);
 
-  const handAgregar = async () => {
+  const agregarUsuario = async () => {
     if (guardando) return;
-
     try {
       setGuardando(true);
       const usuarioCreado = await controller.crearUsuario(nombre);
@@ -56,7 +74,6 @@ export default function InsertUsuarioScreen() {
     }
   };
 
-
   const renderUsuario = ({ item, index }) => (
     <View style={styles.userItem}>
       <View style={styles.userNumber}>
@@ -66,32 +83,30 @@ export default function InsertUsuarioScreen() {
         <Text style={styles.userName}>{item.nombre}</Text>
         <Text style={styles.userId}>ID: {item.id}</Text>
         <Text style={styles.userDate}>
-          {
-            new Date(item.fechaCreacion).toLocaleDateString('es-MX', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })
-          }
+          {new Date(item.fechaCreacion).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
         </Text>
+        <View style={styles.botones}>
+          <TouchableOpacity style={styles.deleteButton} onPress={() => eliminarUsuario(item.id)}>
+            <Text style={styles.buttonText}>Eliminar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.editarButton} onPress={() => abrirModalEditar(item)}>
+            <Text style={styles.buttonText}>Editar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 
   return (
     <View style={styles.container}>
-
-      {/* INSERT & SELECT TITLE */}
       <Text style={styles.title}>INSERT & SELECT</Text>
       <Text style={styles.subtitle}>
         {Platform.OS === 'web' ? 'WEB (LocalStorage)' : `${Platform.OS.toUpperCase()} (SQLite)`}
       </Text>
 
-      {/* INSERT SECTION */}
+      {/* Insertar Usuario */}
       <View style={styles.insertSection}>
-        
         <Text style={styles.sectionTitle}>Insertar Usuario</Text>
-
         <TextInput
           style={styles.input}
           placeholder="Escribe el nombre del usuario"
@@ -99,20 +114,16 @@ export default function InsertUsuarioScreen() {
           onChangeText={setNombre}
           editable={!guardando}
         />
-
         <TouchableOpacity
           style={[styles.button, guardando && styles.buttonDisabled]}
-          onPress={handAgregar}
+          onPress={agregarUsuario}
           disabled={guardando}
         >
-          <Text style={styles.buttonText}>
-            {guardando ? 'Guardando...' : 'Agregar Usuario'}
-          </Text>
+          <Text style={styles.buttonText}>{guardando ? 'Guardando...' : 'Agregar Usuario'}</Text>
         </TouchableOpacity>
-
       </View>
 
-      {/* LISTA DE USUARIOS */}
+      {/* Lista de Usuarios */}
       <View style={styles.selectSection}>
         <View style={styles.selectHeader}>
           <Text style={styles.sectionTitle}>Lista de Usuarios</Text>
@@ -140,12 +151,36 @@ export default function InsertUsuarioScreen() {
             contentContainerStyle={usuarios.length === 0 && styles.emptyList}
           />
         )}
-      </View>
 
+      
+        <Modal transparent visible={modalVisible} animationType="slide">
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContainer}>
+              <Text style={styles.modalTitle}>Editar Usuario</Text>
+              <TextInput
+                style={styles.input}
+                value={nuevoNombre}
+                onChangeText={setNuevoNombre}
+                placeholder="Nuevo nombre"
+              />
+              <View style={styles.modalBotones}>
+
+                 <TouchableOpacity style={[styles.modalButton, styles.saveButton]} onPress={guardarCambios}>
+                  <Text style={[styles.buttonText,{color:"#000000ff"}]}>Guardar</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[styles.modalButton, styles.cancelButton,{marginLeft:30}]} onPress={() => setModalVisible(false)}>
+                  <Text style={styles.buttonText}>Cancelar</Text>
+                </TouchableOpacity>
+               
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </View>
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -302,28 +337,63 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#bbb',
   },
-  mvcInfo: {
-    backgroundColor: '#e3f2fd',
-    padding: 15,
-    marginHorizontal: 15,
+  deleteButton: { 
+    backgroundColor: "#E53935",
+    width: 70, 
+    height: 30,
+    borderRadius: 6,
+    alignItems:"center",
+    justifyContent:"center",
+  },
+  editarButton:{
+    backgroundColor: "#6be047ff",
+    width: 60, 
+    height: 30,
+    borderRadius: 6,
+    alignItems:"center",
+    justifyContent:"center",
+  },
+  botones:{
+    marginTop:20,
+    flex:1,
+    flexDirection:"row-reverse",
+    gap:20,
+  },
+ 
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 12,
+    width: '80%',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
     marginBottom: 15,
+  },
+  cancelButton: {
+    backgroundColor: '#ff0000ff',
+    flex: 1,
+    padding: 12,
     borderRadius: 8,
-    borderLeftWidth: 4,
-    borderLeftColor: '#2196F3',
+    alignItems: 'center',
+    marginRight: 10,
   },
-  mvcTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#1976D2',
-    marginBottom: 8,
+  saveButton: {
+    backgroundColor: '#e1ff35ff',
+    flex: 1,
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
   },
-  mvcText: {
-    fontSize: 12,
-    color: '#555',
-    lineHeight: 18,
-  },
-  bold: {
-    fontWeight: 'bold',
-    color: '#1976D2',
+  modalBotones: {
+    flexDirection: 'row',
+    marginTop: 20,
   },
 });
